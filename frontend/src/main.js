@@ -1,14 +1,14 @@
-import './assets/main.css'
+import {createApp} from "vue";
+import {createPinia} from "pinia";
+import App from "./App.vue";
+import router from "./router";
 
-import { createApp } from 'vue'
-import { createPinia } from 'pinia'
+const app = createApp(App);
 
-import App from './App.vue'
-import router from './router'
+app.use(createPinia());
+app.use(router);
 
-const app = createApp(App)
-
-app.use(createPinia())
-app.use(router)
-
-app.mount('#app')
+// 초기 작업 완료 후로 마운트 시점 설정
+router.isReady().then(() => {
+    app.mount("#app");
+});
