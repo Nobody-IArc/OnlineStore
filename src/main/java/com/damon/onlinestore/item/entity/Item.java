@@ -1,5 +1,6 @@
 package com.damon.onlinestore.item.entity;
 
+import com.damon.onlinestore.item.dto.ItemRead;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,7 +26,20 @@ public class Item {
     @Column(nullable = false)
     private Integer price;
 
+    @Column(nullable = false)
+    private Integer discountPer;
+
     @Column(nullable = false, updatable = false)
     @CreationTimestamp
     private LocalDateTime createdAt;
+
+    public ItemRead toRead() {
+        return ItemRead.builder()
+                .id(id)
+                .name(name)
+                .imgPath(imgPath)
+                .price(price)
+                .discountPer(discountPer)
+                .build();
+    }
 }
