@@ -26,7 +26,7 @@ public class Member {
 
     @Column(nullable = false, updatable = false)
     @CreationTimestamp
-    private LocalDateTime cratedAt;
+    private LocalDateTime createdAt;
 
     public Member() {}
 
