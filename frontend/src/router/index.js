@@ -18,6 +18,26 @@ const router = createRouter({
       name: 'login',
       component: () => import('../views/Login.vue'),
     },
+    {
+      path: '/cart',
+      name: 'cart',
+      component: () => import('../views/Cart.vue'),
+    },
+    {
+      path: '/order',
+      name: 'orderForm',
+      component: () => import('../views/OrderForm.vue'),
+    },
+    {
+      path: '/orders',
+      name: 'orders',
+      component: () => import('../views/Orders.vue'),
+    },
+    {
+      path: '/orders/:id',
+      name: 'orderDetail',
+      component: () => import('../views/OrderDetail.vue'),
+    }
   ]
 });
 

@@ -13,7 +13,7 @@ const state = reactive({
   const res = await getItems();
 
   if (res.status === 200) {
-    console.log(res.data);
+    state.items = res.data;
   }
 })();
 

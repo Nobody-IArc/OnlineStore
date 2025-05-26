@@ -1,4 +1,6 @@
 <script setup>
+import {addItem} from "@/services/cartService";
+import {useRouter} from "vue-router";
 import {computed} from "vue";
 
 // 프로퍼티 객체
@@ -17,9 +19,16 @@ const computedItemDiscountPrice = computed(() => {
   return (props.item.price - (props.item.price * props.item.discountPer / 100)).toLocaleString() + '원';
 });
 
+// 라우터 객체 생성
+const router = useRouter();
+
 // 카트에 상품 담기
 const put = async() => {
-  window.alert("준비 중");
+  const res = await addItem(props.item.id);
+
+  if (res.status === 200 && window.confirm('카트에 상품이 추가되었습니다.')) {
+    await router.push('/cart');
+  }
 };
 </script>
 
