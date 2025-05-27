@@ -4,15 +4,38 @@ import {getOrders} from "@/services/orderService";
 
 // 반응형 상태
 const state = reactive({
+  args: {
+    page: 0,
+    size: 5
+  },
+  page: {
+    index: 0,
+    totalPages: 0,
+    totalElements: 0,
+  },
   orders: [],
 });
 
+// 목록 번호 추출
+const getListNum = (idx) => {
+  // 전체 - 인덱스 - 페이지당 데이터 * 페이지 인덱스
+  return state.page.totalElements - idx - state.args.size * state.page.index;
+};
+
 // 주문 목록 조회
-const load = async() => {
-  const res = await getOrders();
+const load = async(pageIdx) => {
+  if (pageIdx !== undefined) {
+    state.args.page = pageIdx;
+  }
+
+  // HTTP args 전달
+  const res = await getOrders(state.args);
 
   if (res.status === 200) {
-    state.orders = res.data;
+    state.orders = res.data.content;
+    state.page.index = res.data.number;
+    state.page.totalPages = res.data.totalPages;
+    state.orders.totalElements = res.data.totalElements;
   }
 };
 
@@ -50,6 +73,15 @@ const load = async() => {
         </tr>
         </tbody>
       </table>
+      <div class="pagination d-flex justify-content-center pt-2">
+        <div class="btn-group" role="group">
+          <button class="btn py-2 px-3"
+                  :class="[state.page.index === idx ? 'btn-primary' : 'btn-outline-secondary']"
+                  v-for="(i, idx) in state.page.totalPages" @click="load(idx)">
+            {{ i }}
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </template>

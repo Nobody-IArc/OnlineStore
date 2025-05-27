@@ -12,6 +12,8 @@ import com.damon.onlinestore.order.repository.OrderItemRepository;
 import com.damon.onlinestore.order.repository.OrderRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -29,9 +31,10 @@ public class BaseOrderService implements OrderService {
 
     // 주문 목록 조회
     @Override
-    public List<OrderRead> findAll(Integer memberId) {
+    public Page<OrderRead> findAll(Integer memberId, Pageable pageable) {
         // DTO 변환 후 반환
-        return orderRepository.findAllByMemberIdOrderByIdDesc(memberId).stream().map(Order::toRead).toList();
+        Page<Order> orders =  orderRepository.findAllByMemberIdOrderByIdDesc(memberId, pageable);
+        return orders.map(Order::toRead);
     }
 
     // 주문 상세 조회

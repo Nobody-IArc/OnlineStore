@@ -38,12 +38,8 @@ public class AccountController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        accountHelper.join(joinReq);
-
-        return new ResponseEntity<>(HttpStatus.OK);
-
         // 중복값 확인
-        if(memberService.find(joinReq.getLoginId()) != null) {
+        if (memberService.find(joinReq.getLoginId()) != null) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
 
