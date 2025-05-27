@@ -1,6 +1,7 @@
-import axios from 'axios';
+import httpRequester from '@/libs/httpRequester';
+
 
 // 상품 목록 조회
 export const getItems = () => {
-    return axios.get("/v1/api/items").catch(err => err.response);
+    return httpRequester.get("/v1/api/items").catch(err => err.response);
 };
