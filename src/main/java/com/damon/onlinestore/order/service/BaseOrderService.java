@@ -1,6 +1,7 @@
 package com.damon.onlinestore.order.service;
 
 import com.damon.onlinestore.cart.service.CartService;
+import com.damon.onlinestore.common.util.EncryptionUtils;
 import com.damon.onlinestore.item.dto.ItemRead;
 import com.damon.onlinestore.item.service.ItemService;
 import com.damon.onlinestore.order.dto.OrderRead;
@@ -77,10 +78,14 @@ public class BaseOrderService implements OrderService {
         // 주문 요청에 결제 금액 입력
         orderReq.setAmount(amount);
 
+        if ("card".equals(orderReq.getPayment())) {
+            orderReq.setCardNumber(EncryptionUtils.encrypt(orderReq.getCardNumber()));
+        }
+
         // 주문 저장
         Order order = orderRepository.save(orderReq.toEntity(memberId));
 
-        // 주문 상푸 데이터 생성
+        // 주문 상품 데이터 생성
         List<OrderItem> newOrderItems = new ArrayList<>();
 
         // 상품 id 만큼 주문 상품 추가

@@ -21,8 +21,11 @@ public class Member {
     @Column(length = 50, nullable = false, unique = true)
     private String loginId;
 
-    @Column(length = 100, nullable = false)
+    @Column(length = 64, nullable = false)
     private String loginPw;
+
+    @Column(length = 16, nullable = false)
+    private String loginPwSalt;
 
     @Column(nullable = false, updatable = false)
     @CreationTimestamp
@@ -30,9 +33,10 @@ public class Member {
 
     public Member() {}
 
-    public Member(String name, String loginId, String loginPw) {
+    public Member(String name, String loginId, String loginPw, String loginPwSalt) {
         this.name = name;
         this.loginId = loginId;
         this.loginPw = loginPw;
+        this.loginPwSalt = loginPwSalt;
     }
 }
