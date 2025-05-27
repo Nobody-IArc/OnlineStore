@@ -15,3 +15,4 @@
 |05.26 - 5|프런트엔드 - 기본 기능 완료|백엔드 오류 발견 및 수정 & 프런트엔드 주문 리스트 및 주문 상세 조회 기능 완료|
 |05.27|인터셉터 추가|백엔드 - Spring Interceptor, 프런트엔드 - axios Interceptor (axios to httpRequester)|
 |05.27 - 2|토큰 방식으로 변경|Secret Key 등은 추후 암호화 및 환경변수화 예정|
+|05.27 - 3|Hash 적용|Secret Key 32자 이상으로 수정 - 실제 서비스가 아니기에 그냥 사용|
