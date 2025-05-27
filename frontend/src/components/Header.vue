@@ -14,6 +14,7 @@ const logoutAccount = async () => {
   const res = await logout();
 
   if (res.status === 200) {
+    accountStore.setAccessToken('');
     accountStore.setLoggedIn(false);
     await router.push("/");
   }
