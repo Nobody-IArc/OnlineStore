@@ -7,6 +7,7 @@ import com.damon.onlinestore.account.helper.AccountHelper;
 import com.damon.onlinestore.block.service.BlockService;
 import com.damon.onlinestore.common.util.HttpUtils;
 import com.damon.onlinestore.common.util.TokenUtils;
+import com.damon.onlinestore.member.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +25,7 @@ public class AccountController {
 
     private final AccountHelper accountHelper;
     private final BlockService blockService;
+    private final MemberService memberService;
 
     // 회원가입
     @PostMapping("/api/account/join")
@@ -38,6 +40,14 @@ public class AccountController {
 
         accountHelper.join(joinReq);
 
+        return new ResponseEntity<>(HttpStatus.OK);
+
+        // 중복값 확인
+        if(memberService.find(joinReq.getLoginId()) != null) {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
+
+        accountHelper.join(joinReq);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

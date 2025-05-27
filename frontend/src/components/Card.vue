@@ -2,6 +2,21 @@
 import {addItem} from "@/services/cartService";
 import {useRouter} from "vue-router";
 import {computed} from "vue";
+import {useAccountStore} from "@/stores/account";
+
+// 계정 스토어
+const accountStore = useAccountStore();
+
+// 상품 담기
+const put = async () => {
+  if (!accountStore.loggedIn) {
+    if (window.confirm("로그인이 필요한 서비스입니다. 로그인 페이지로 이동하시겠습니까?")) {
+      await router.push("/login");
+    }
+  }
+
+  return;
+}
 
 // 프로퍼티 객체
 const props = defineProps({
@@ -21,15 +36,6 @@ const computedItemDiscountPrice = computed(() => {
 
 // 라우터 객체 생성
 const router = useRouter();
-
-// 카트에 상품 담기
-const put = async() => {
-  const res = await addItem(props.item.id);
-
-  if (res.status === 200 && window.confirm('카트에 상품이 추가되었습니다.')) {
-    await router.push('/cart');
-  }
-};
 </script>
 
 <template>

@@ -9,4 +9,6 @@ public interface MemberService {
 
     // 조회
     Member find(String loginId, String loginPw);
+
+    Member find(String loginId);
 }

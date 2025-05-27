@@ -20,6 +20,15 @@ const accountStore = useAccountStore();
 
 // 로그인 데이터 전송
 const submit = async() => {
+  if (state.form.loginId?.trim()) {
+    window.alert("Email 입력은 필수입니다.");
+    document.getElementById("loginId")?.focus();
+    return
+  } else if (state.form.loginPw?.trim()) {
+    window.alert("Password 입력은 필수입니다.");
+    document.getElementById("loginPw")?.focus();
+    return;
+  }
   const res = await login(state.form);
 
   switch(res.status) {
