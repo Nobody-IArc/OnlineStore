@@ -15,8 +15,7 @@ public class TokenUtils {
     private static final Key signKey;
 
     static {
-        // 실제 서비스 상에서는 가려서 사용할 것
-        String secretKey = "UqKDBHCwlLh4I1A1ebkROT6oZNc7H3Gn";
+        // 키 가림
         byte[] secretKeyBytes = secretKey.getBytes(StandardCharsets.UTF_8);
         signKey = new SecretKeySpec(secretKeyBytes, SignatureAlgorithm.HS256.getJcaName());
     }
